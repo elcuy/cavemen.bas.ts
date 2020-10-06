@@ -1,0 +1,49 @@
+
+$player-width: 95px
+$player-height: 71px
+
+$bone-width: 55px
+$bone-height: 55px
+
+@mixin sprite($spritesheet, $width, $height)
+  width: $width
+  height: $height
+  background-image: url($spritesheet)
+  position: absolute
+
+body
+  padding: 0
+  margin: 0
+  background-color: black
+
+#cavemen
+  width: 100vw
+  height: 100vh
+  display: flex
+  align-items: center
+  justify-content: center
+
+.scene
+  background-color: #6cc9ff
+  background-image: url("../images/background.png")
+  position: relative
+  overflow: hidden
+
+.bone
+  @include sprite("../images/bone.png", $bone-width, $bone-height)
+
+  @for $num from 1 to 20
+    &.col#{$num}
+      background-position-x: -#{$bone-width * $num - $bone-width}
+    &.row#{$num}
+      background-position-y: -#{$bone-height * $num - $bone-height}
+
+@for $num from 1 through 2
+  .player-#{$num}
+    @include sprite("../images/player-sheet-#{$num}.png", $player-width, $player-height)
+
+    @for $num from 1 through 20
+      &.col#{$num}
+        background-position-x: -#{$player-width * $num - $player-width}
+      &.row#{$num}
+        background-position-y: -#{$player-height * $num - $player-height}
